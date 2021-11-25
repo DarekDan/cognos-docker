@@ -1,13 +1,16 @@
 ```shell
-docker build --target cognos-dispatcher -t darekdan/cognos-dispatcher:11.2.1 .
+docker build --target cognos-dispatcher -t darekdan/cognos-dispatcher .
 ```
 
 ```shell
-docker run -d -p 60022:22 --name cognos-dispatcher --hostname cogdisp darekdan/cognos-dispatcher:11.2.1
+docker run -d --restart unless-stopped -p 60022:22 --name cognos-dispatcher --hostname cogdisp darekdan/cognos-dispatcher
 ```
 
 ```shell
 docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Pass@W0rd" -p 1433:1433 -d --hostname cogdb --name cogdb mcr.microsoft.com/mssql/server
+
+docker build -t darekdan/cognos-db --target cognos-db .
+docker run -d  -p 1433:1433 --name cogdb --hostname cogdb darekdan/cognos-db
 ```
 
 ```powershell
