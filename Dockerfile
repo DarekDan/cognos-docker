@@ -36,5 +36,13 @@ CMD ["/usr/bin/sudo", "/usr/sbin/sshd", "-D", "-o", "ListenAddress=0.0.0.0"]
 FROM cognos-base AS cognos-dispatcher
 USER root
 RUN mkdir /opt/cognos && chown cognos:cognos /opt/cognos
-USER cognos
+
 WORKDIR /home/cognos
+USER cognos
+
+ARG src="/mnt/d/Downloads/Cognos/CA 11.2.1"
+COPY --chown=cognos:cognos ./ca_instl_lnxi38664_3.3.18.bin /home/cognos/
+COPY --chown=cognos:cognos ./ca_srv_lnxi38664_11.2.1.zip /home/cognos/
+COPY --chown=cognos:cognos ./dispatcher.response /home/cognos/
+
+RUN ./ca_instl_lnxi38664_3.3.18.bin -f /home/cognos/dispatcher.response -i silent
