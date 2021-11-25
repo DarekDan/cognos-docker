@@ -1,4 +1,5 @@
 #!/bin/bash
+# Credit https://www.abhith.net/blog/create-sql-server-database-from-a-script-in-docker-compose/
 set -e
 
 if [ "$1" = '/opt/mssql/bin/sqlservr' ]; then

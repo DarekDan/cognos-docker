@@ -991,7 +991,7 @@ Master configuration file for all IBM Cognos components.
           <!--name:Specifies the name of the database used as the content store.-->
           <!--Enter the name of the database. The name is set when you create the database. Ensure that the value for this property corresponds to the name of the database you created. Otherwise, the product will not run.-->
           <crn:parameter name="name">
-            <crn:value xsi:type="xsd:string">cm</crn:value>
+            <crn:value xsi:type="xsd:string">CM</crn:value>
           </crn:parameter>
         </crn:instance>
       </crn:instances>
