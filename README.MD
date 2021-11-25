@@ -1,21 +1,37 @@
+# Containerizing Cognos Analytics
+
+## Cognos docs
+
+[Silent Installation](https://www.ibm.com/docs/en/cognos-analytics/11.2.0?topic=configuration-use-silent-installation)
+
+[Response File Template](https://www.ibm.com/docs/en/cognos-analytics/11.2.0?topic=configuration-use-response-file-template)
+
+[Silent Configuration](https://www.ibm.com/docs/en/cognos-analytics/11.2.0?topic=configuration-use-silent)
+
+## Docker Commands
+
+### Build Cognos Dispatcher (with CM)
 ```shell
 docker build --target cognos-dispatcher -t darekdan/cognos-dispatcher .
 ```
+[SSH Config credit](https://stackoverflow.com/questions/22886470/start-sshd-automatically-with-docker-container)
 
+### Start Cognos Dispatcher
 ```shell
 docker run -d --restart unless-stopped -p 60022:22 --name cognos-dispatcher --hostname cogdisp darekdan/cognos-dispatcher
 ```
 
+### Build a Microsoft SQL Server with CM database
 ```shell
-docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Pass@W0rd" -p 1433:1433 -d --hostname cogdb --name cogdb mcr.microsoft.com/mssql/server
-
 docker build -t darekdan/cognos-db --target cognos-db .
-docker run -d  -p 1433:1433 --name cogdb --hostname cogdb darekdan/cognos-db
+docker run -d  -p 1433:1433 --name cognos-db --hostname cogdb darekdan/cognos-db
 ```
+[Credit](https://www.abhith.net/blog/create-sql-server-database-from-a-script-in-docker-compose/)
 
-```powershell
-Get-Content .\Dockerfile.mssql | docker build -t darekdan/cognos-mssql -
-```
+## TODO 
+
+1. Fix Docker DNS [Known issue](https://github.com/docker/for-win/issues/3810)
+2. Implement docker-compose
 
 #### Sample docker-compose.yaml
 ```yaml
@@ -41,7 +57,7 @@ services:
 volumes:
   mssqldata:
 ```
-AAP.Net Core
+ASP.Net Core
 ```yaml
 services:
   other.service:

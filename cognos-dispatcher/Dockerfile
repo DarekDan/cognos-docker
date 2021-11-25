@@ -6,7 +6,7 @@ RUN echo "cognos:cognos" | chpasswd
 RUN apt-get -y update
 
 # Dependencies
-RUN apt-get -qq install openssh-server sudo nano vim-tiny
+RUN apt-get -qq install openssh-server sudo nano vim-tiny netcat net-tools iputils-ping dnsutils
 RUN apt-get -qq install unzip libc6:amd64 libstdc++6 libxtst6 libxi6 libxft2
 RUN apt-get -qq clean
 

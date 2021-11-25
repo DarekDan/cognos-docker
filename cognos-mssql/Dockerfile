@@ -6,7 +6,7 @@ ENV ACCEPT_EULA Y
 EXPOSE 1433
 USER root
 RUN apt update
-RUN apt-get -qq install netcat
+RUN apt-get -qq install netcat net-tools iputils-ping dnsutils
 
 FROM cognos-mssql-base as cognos-db
 COPY ./entrypoint.sh /
