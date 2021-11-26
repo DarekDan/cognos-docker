@@ -7,7 +7,9 @@ RUN apt-get -y update
 
 # Dependencies
 RUN apt-get -qq install openssh-server sudo nano vim-tiny netcat net-tools iputils-ping dnsutils
-RUN apt-get -qq install unzip libc6:amd64 libstdc++6 libxtst6 libxi6 libxft2
+RUN apt-get -qq install build-essential
+RUN apt-get -qq install libstdc++6 libstdc++6:amd64 libx32stdc++6 
+RUN apt-get -qq install unzip libc6 libc6-i386 libc6:amd64 libxtst6 libxi6 libxft2
 RUN apt-get -qq clean
 RUN ulimit -t unlimited
 RUN ulimit -f unlimited

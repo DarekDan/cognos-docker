@@ -81,3 +81,6 @@ services:
 volumes:
   mssqldata:
 ```
+
+https://community.ibm.com/community/user/businessanalytics/blogs/antonio-marziano/2020/07/28/build-and-run-the-cognos-analytics-dispatcher
+https://community.ibm.com/community/user/businessanalytics/blogs/antonio-marziano/2020/06/02/build-and-run-the-cognos-analytics-gateway-as-a-do
