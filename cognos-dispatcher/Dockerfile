@@ -9,6 +9,13 @@ RUN apt-get -y update
 RUN apt-get -qq install openssh-server sudo nano vim-tiny netcat net-tools iputils-ping dnsutils
 RUN apt-get -qq install unzip libc6:amd64 libstdc++6 libxtst6 libxi6 libxft2
 RUN apt-get -qq clean
+RUN ulimit -t unlimited
+RUN ulimit -f unlimited
+RUN ulimit -m unlimited
+RUN ulimit -u unlimited
+RUN ulimit -s unlimited
+RUN ulimit -v unlimited
+RUN ulimit -n 8192
 
 # Configure SSHD.
 # SSH login fix. Otherwise user is kicked off after login
@@ -40,15 +47,15 @@ EXPOSE 9300
 WORKDIR /home/cognos
 USER cognos
 
-ARG src="/mnt/d/Downloads/Cognos/CA 11.2.1"
 COPY --chown=cognos:cognos ./ca_instl_lnxi38664_3.3.18.bin /home/cognos/
 COPY --chown=cognos:cognos ./ca_srv_lnxi38664_11.2.1.zip /home/cognos/
 COPY --chown=cognos:cognos ./dispatcher.response /home/cognos/
+COPY --chown=cognos:cognos ./entrypoint.sh /home/cognos/
 
+RUN chmod +x /home/cognos/entrypoint.sh
 RUN ./ca_instl_lnxi38664_3.3.18.bin -f /home/cognos/dispatcher.response -i silent
 
 COPY --chown=cognos:cognos ./mssql-jdbc-9.4.0.jre8.jar /opt/cognos/drivers
 COPY --chown=cognos:cognos ./cogstartup.xml /opt/cognos/configuration
 
-WORKDIR /opt/cognos/bin64
-#RUN ./cogconfig.sh -s
+ENTRYPOINT [ "/home/cognos/entrypoint.sh"]

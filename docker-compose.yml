@@ -1,0 +1,14 @@
+services:
+  cognos-dispatcher:
+    image: "darekdan/cognos-dispatcher"
+    tty: true
+    ports:
+      - "50022:22"
+      - "59300:9300"
+    links:
+      - "cognos-db:cogdb"
+  cognos-db:
+    image: "darekdan/cognos-db"
+    ports:
+      - "1433:1433"
+    
